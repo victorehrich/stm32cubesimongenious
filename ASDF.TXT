@@ -18,9 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 
 /* USER CODE END Includes */
 
@@ -95,34 +95,57 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_0);
-	  HAL_Delay(500);
-	  HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_1);
-	  HAL_Delay(500);
-	  HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_2);
-	  HAL_Delay(500);
-	  HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_3);
-	  HAL_Delay(500);
-
-	  if( (GPIO_PIN_4) == 1){
-	  			  	  	  HAL_GPIO_Toggle(GPIO_PIN_4);
-	  			  	  	  HAL_Delay(500);
+	  int num = rand() % 4;
+	  int aux = 0;
+	  int fila[10];
+	  fila[aux] = num;
+	  aux++;
+	  int delay = 500;
+	  int pressButton = 0;
+	  switch(num){
+	  	case 0:
+					HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_0); 
+					HAL_Delay(delay);
+	  	case 1:
+	  		  		HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_1); 
+	  		  		HAL_Delay(delay);
+	  	case 2:
+	  		  		HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_2); 
+	  		  		HAL_Delay(delay);
+	  	case 3:
+	  		  		HAL_GPIO_TogglePin(GPIOA_BASE, GPIO_PIN_3); 
+	  		  		HAL_Delay(delay);
 	  }
-	  if( (GPIO_PIN_5) == 1){
-	  		  			  HAL_GPIO_Toggle(GPIO_PIN_5);
-	  		  			  HAL_Delay(500);
+	  
+	  pressButton = 0;
+	  delay -= 40;
+	  while(pressButton == 0){
+		  if( (GPIO_PIN_4) == 1){
+							  HAL_GPIO_Toggle(GPIO_PIN_4);
+							  HAL_Delay(500);
+							  pressButton = 1;
+		  }
+		  if( (GPIO_PIN_5) == 1){
+							  HAL_GPIO_Toggle(GPIO_PIN_5);
+							  HAL_Delay(500);
+							  pressButton = 1;
+		  }
+		  if( (GPIO_PIN_6) == 1){
+							  HAL_GPIO_Toggle(GPIO_PIN_6);
+							  HAL_Delay(500);
+							  pressButton = 1;
+		  }
+		  if( (GPIO_PIN_7) == 1){
+							  HAL_GPIO_Toggle(GPIO_PIN_7);
+							  HAL_Delay(500);
+							  pressButton = 1;
+		  }
+		  
 	  }
-	  if( (GPIO_PIN_6) == 1){
-	  		  			  HAL_GPIO_Toggle(GPIO_PIN_6);
-	  		  			  HAL_Delay(500);
+	  
+	  if(aux > 9){
+		  return;
 	  }
-	  if( (GPIO_PIN_7) == 1){
-	  		  			  HAL_GPIO_Toggle(GPIO_PIN_7);
-	  		  			  HAL_Delay(500);
-	  }
-
-
-
 
   }
   /* USER CODE END 3 */
@@ -176,13 +199,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA0 PA1 PA2 PA3
-                           PA4 PA5 PA6 PA7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+  /*Configure GPIO pins : PA1 PA2 PA3 PA4 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
